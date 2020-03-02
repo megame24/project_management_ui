@@ -22,7 +22,27 @@ module.exports = function (env) {
         {
           test: /\.scss$/,
           use: ['style-loader', 'css-loader', 'sass-loader'],
-        }
+        },
+        {
+          test: /\.(png|jpg|jpeg|gif)$/,
+          use: [{
+            loader: 'url-loader',
+            options: { limit: 30000 },
+          }],
+        },{
+          test: /\.svg$/,
+          use: [
+            {
+              loader: "babel-loader"
+            },
+            {
+              loader: "react-svg-loader",
+              options: {
+                jsx: true // true outputs JSX tags
+              }
+            }
+          ]
+        },
       ],
     },
     resolve: {
