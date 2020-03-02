@@ -1,0 +1,30 @@
+{
+  "extends": [
+      "airbnb"
+  ],
+  "parser": "babel-eslint",
+  "env": {
+      "browser": true,
+      "node": true,
+      "jest": true
+  },
+  "parserOptions": {
+      "ecmaFeatures": {
+          "jsx": true,
+          "es6": true,
+          "classes": true
+      },
+      "ecmaVersion": 9
+  },
+  "plugins": [
+    "react-hooks"
+  ],
+  "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+      "import/prefer-default-export": 0,
+      "import/no-extraneous-dependencies": 0,
+      "react/jsx-filename-extension": 0,
+      "react/no-array-index-key": 0
+  }
+}
