@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 
 const GuestRoute = ({ component: Component, ...rest }) => {
   const userId = useSelector((state) => state.auth.user.id);
-  const redirectUrl = '/';
+  const role = useSelector((state) => state.auth.role);
+  let redirectUrl = '/createStory';
+  if (role === 'Admin') redirectUrl = '/viewStories';
   return (
     <Route
       {...rest}
