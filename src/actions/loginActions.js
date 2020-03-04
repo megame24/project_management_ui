@@ -1,7 +1,7 @@
 import axiosInstance from '../services/axiosInstance';
 import types from './actionTypes';
 
-const { LOGIN } = types;
+const { LOGIN, LOGOUT } = types;
 
 const login = (formData) => {
   let route = '/login';
@@ -12,6 +12,11 @@ const login = (formData) => {
   };
 };
 
+const logout = () => ({
+  type: LOGOUT,
+});
+
 export {
   login,
+  logout,
 };

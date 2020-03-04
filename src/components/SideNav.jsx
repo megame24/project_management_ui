@@ -1,10 +1,17 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../actions/loginActions';
 
 const SideNav = () => {
   const activeRoute = useSelector((state) => state.nav.activeRoute);
+  const userRole = useSelector((state) => state.auth.role);
+  const dispatch = useDispatch();
+
+  const logoutClick = () => {
+    dispatch(logout());
+  };
 
   return (
     <div
@@ -16,7 +23,7 @@ const SideNav = () => {
       <div
         css={{
           marginBottom: '20px',
-          display: 'flex',
+          display: userRole === 'User' ? 'flex' : 'none',
           alignItems: 'center',
         }}
       >
@@ -56,11 +63,18 @@ const SideNav = () => {
           }}
           to="/viewStories"
         >
-          <i css={{ fontSize: '20px', marginRight: '15px' }} className="ion-ios-list-outline" />
-          <span css={{ opacity: '0.6' }}>View Stories</span>
+          <i
+            css={{
+              fontSize: '20px',
+              marginRight: '15px',
+              color: activeRoute === 'viewStories' ? '#f9c10f' : '#fff',
+            }}
+            className="ion-ios-list-outline"
+          />
+          <span css={{ opacity: activeRoute === 'viewStories' ? '1' : '0.6' }}>View Stories</span>
         </Link>
       </div>
-      <div css={{ opacity: '0.6', cursor: 'pointer', fontSize: '14px' }}>Logout</div>
+      <div onClick={logoutClick} css={{ opacity: '0.6', cursor: 'pointer', fontSize: '14px' }}>Logout</div>
     </div>
   );
 };
