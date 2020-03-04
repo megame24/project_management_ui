@@ -1,6 +1,8 @@
 import types from '../actions/actionTypes';
 
-const { LOGIN, PERSIST_LOGIN } = types;
+const {
+  LOGIN, PERSIST_LOGIN, RESET, LOGOUT,
+} = types;
 
 export const initialState = {
   isLoading: false,
@@ -15,6 +17,18 @@ export const initialState = {
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
+    case LOGOUT:
+      return {
+        ...state,
+        isLoading: false,
+        errors: {
+          statusCode: 0,
+          message: '',
+          response: {},
+        },
+        role: '',
+        user: {},
+      };
     case `${LOGIN}_PENDING`:
       return {
         ...state,
@@ -46,6 +60,16 @@ export default (state = initialState, action = {}) => {
           statusCode: action.payload.statusCode,
           message: action.payload.message,
           response: action.payload.response,
+        },
+      };
+    case RESET:
+      return {
+        ...state,
+        success: false,
+        errors: {
+          statusCode: 0,
+          message: '',
+          response: {},
         },
       };
     default:

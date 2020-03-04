@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { activeRoute } from '../actions/navActions';
-import { createStory, resetCreateStorySuccess } from '../actions/storyActions';
+import { createStory, storeCreatedStory } from '../actions/storyActions';
+import { reset } from '../actions/generalActions';
 import {
   mq, inputStyle, inputButtonStyle, baseAlertStyle,
 } from '../configs/styleConfigs';
@@ -21,7 +22,9 @@ const fieldMarginBottom = {
 
 const CreateStory = () => {
   const success = useSelector((state) => state.story.success);
+  const created = useSelector((state) => state.story.created);
   const userRole = useSelector((state) => state.auth.role);
+  const userId = useSelector((state) => state.auth.user.id);
   const isLoading = useSelector((state) => state.story.isLoading);
   const apiErrMsg = useSelector((state) => state.story.errors.message);
   const dispatch = useDispatch();
@@ -37,13 +40,15 @@ const CreateStory = () => {
     dispatch(activeRoute('createStory'));
     return () => {
       dispatch(activeRoute(''));
-      dispatch(resetCreateStorySuccess());
     };
   }, [dispatch]);
+
+  useEffect(() => (() => dispatch(reset())), [dispatch]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = {
+      createdBy: userId,
       summary,
       description,
       type,
@@ -54,17 +59,35 @@ const CreateStory = () => {
     dispatch(createStory(formData));
   };
 
+  useEffect(() => {
+    const formData = {
+      createdBy: userId,
+      summary,
+      description,
+      type,
+      complexity,
+      estimatedHrs,
+      cost,
+    };
+    if (created) {
+      // save created story on redux store since the mock api do not return it
+      dispatch(storeCreatedStory(formData));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [created]);
+
   return (
-    <div css={{
-      width: '100%',
-      padding: '50px',
-      [mq[3]]: {
-        padding: '30px',
-      },
-      [mq[1]]: {
-        padding: '10px',
-      },
-    }}
+    <div
+      css={{
+        width: '100%',
+        padding: '50px',
+        [mq[3]]: {
+          padding: '30px',
+        },
+        [mq[1]]: {
+          padding: '10px',
+        },
+      }}
     >
       <Loading isLoading={isLoading} />
       {

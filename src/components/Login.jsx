@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-escape */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../actions/loginActions';
 import LoginSvg from '../asset/images/login.svg';
@@ -9,6 +9,7 @@ import Loading from './Loading';
 import {
   mq, inputStyle, inputButtonStyle, alertStyleAbsolute, baseAlertStyle,
 } from '../configs/styleConfigs';
+import { reset } from '../actions/generalActions';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -18,6 +19,8 @@ const Login = () => {
   const [errorMsg, setErrorMsg] = useState({ email: '', password: '' });
   const isLoading = useSelector((state) => state.auth.isLoading);
   const apiErrMsg = useSelector((state) => state.auth.errors.message);
+
+  useEffect(() => (() => dispatch(reset())), [dispatch]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

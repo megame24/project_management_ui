@@ -1,7 +1,6 @@
 /* eslint-disable no-useless-escape */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-// eslint-disable-next-line no-unused-vars
 import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
