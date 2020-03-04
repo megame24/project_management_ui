@@ -3,6 +3,7 @@ import axiosInstance from '../services/axiosInstance';
 
 const {
   CREATE_STORY, GET_STORIES, STORE_CREATED_STORY,
+  UPDATE_STORY_STATUS,
 } = types;
 
 const createStory = (formData) => ({
@@ -20,8 +21,14 @@ const storeCreatedStory = (formData) => ({
   payload: formData,
 });
 
+const updateStatus = (story) => ({
+  type: UPDATE_STORY_STATUS,
+  payload: story,
+});
+
 export {
   createStory,
   getStories,
   storeCreatedStory,
+  updateStatus,
 };

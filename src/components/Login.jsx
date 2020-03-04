@@ -12,12 +12,12 @@ import {
 import { reset } from '../actions/generalActions';
 
 const Login = () => {
+  const isLoading = useSelector((state) => state.auth.isLoading);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const dispatch = useDispatch();
   const [errorMsg, setErrorMsg] = useState({ email: '', password: '' });
-  const isLoading = useSelector((state) => state.auth.isLoading);
   const apiErrMsg = useSelector((state) => state.auth.errors.message);
 
   useEffect(() => (() => dispatch(reset())), [dispatch]);

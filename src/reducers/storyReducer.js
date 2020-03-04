@@ -2,39 +2,8 @@ import types from '../actions/actionTypes';
 
 const {
   CREATE_STORY, RESET, GET_STORIES, STORE_CREATED_STORY,
+  UPDATE_STORY_STATUS,
 } = types;
-
-
-// {
-//   createdBy: 2,
-//   status: 'approved',
-//   summary: '1st story created by 2',
-//   description: 'dummy desc',
-//   type: 'enhancement',
-//   complexity: 'high',
-//   estimatedHrs: 1,
-//   cost: 100,
-// },
-// {
-//   createdBy: 2,
-//   status: 'rejected',
-//   summary: '2nd story created by 2',
-//   description: 'dummy desc',
-//   type: 'enhancement',
-//   complexity: 'high',
-//   estimatedHrs: 1,
-//   cost: 100,
-// },
-// {
-//   createdBy: 3,
-//   summary: 'story created by 3',
-//   description: 'dummy desc',
-//   type: 'enhancement',
-//   complexity: 'high',
-//   estimatedHrs: 1,
-//   cost: 100,
-// },
-
 
 export const initialState = {
   isLoading: false,
@@ -102,9 +71,22 @@ export default (state = initialState, action = {}) => {
           response: action.payload.response,
         },
       };
+    case UPDATE_STORY_STATUS:
+    {
+      const stories = [...state.stories];
+      const storyToUpdate = state.stories
+        .filter((story) => story.summary === action.payload.summary)[0];
+      storyToUpdate.status = action.payload.status;
+      return {
+        ...state,
+        stories,
+        success: true,
+      };
+    }
     case RESET:
       return {
         ...state,
+        isLoading: false,
         success: false,
         created: false,
         errors: {
