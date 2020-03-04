@@ -12,13 +12,14 @@ import Loading from './Loading';
 import { reset } from '../actions/generalActions';
 
 const ViewStories = () => {
+  const isLoading = useSelector((state) => state.story.isLoading);
   const history = useHistory();
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.user.id);
   const userRole = useSelector((state) => state.auth.role);
   const stories = useSelector((state) => state.story.stories);
-  const isLoading = useSelector((state) => state.story.isLoading);
   const apiErrMsg = useSelector((state) => state.story.errors.message);
+
   let myStories = stories;
   if (userRole === 'User') {
     myStories = stories.filter((story) => story.createdBy === userId);
@@ -65,8 +66,8 @@ const ViewStories = () => {
             <Table.HeaderCell>Description</Table.HeaderCell>
             <Table.HeaderCell>Type</Table.HeaderCell>
             <Table.HeaderCell>Complexity</Table.HeaderCell>
-            <Table.HeaderCell>Estimated time for completion</Table.HeaderCell>
-            <Table.HeaderCell>Cost associated to it</Table.HeaderCell>
+            <Table.HeaderCell>Estimated time for completion (hours)</Table.HeaderCell>
+            <Table.HeaderCell>Cost associated to it ($)</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
