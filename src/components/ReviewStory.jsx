@@ -4,7 +4,9 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { mq, inputStyle, inputButtonStyle } from '../configs/styleConfigs';
+import {
+  mq, inputStyle, inputButtonStyle, containerStyle,
+} from '../configs/styleConfigs';
 import StoryFormInputs from './StoryForm';
 import { updateStatus } from '../actions/storyActions';
 import { reset } from '../actions/generalActions';
@@ -27,24 +29,13 @@ const ReviewStory = ({ location }) => {
     dispatch(updateStatus(storyToUpdate));
   };
 
+  // reset errors and success toggles when un-mounting component
   useEffect(() => (() => dispatch(reset())), [dispatch]);
 
   return (
-    <div
-      css={{
-        width: '100%',
-        padding: '50px',
-        [mq[3]]: {
-          padding: '30px',
-        },
-        [mq[1]]: {
-          padding: '10px',
-        },
-      }}
-    >
-      {
-        userRole === 'User' && <Redirect to="/viewStories" />
-      }
+    <div css={[containerStyle]}>
+      {/* This route is only accessible to admins */}
+      {userRole === 'User' && <Redirect to="/viewStories" />}
       <div
         css={{
           width: '50%',
@@ -90,9 +81,7 @@ const ReviewStory = ({ location }) => {
           />
         </div>
       </div>
-      {
-        success && <Redirect to="/viewStories" />
-      }
+      {success && <Redirect to="/viewStories" />}
     </div>
   );
 };

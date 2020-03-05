@@ -7,7 +7,7 @@ import { activeRoute } from '../actions/navActions';
 import { createStory, storeCreatedStory } from '../actions/storyActions';
 import { reset } from '../actions/generalActions';
 import {
-  mq, inputStyle, inputButtonStyle, baseAlertStyle,
+  mq, inputStyle, inputButtonStyle, baseAlertStyle, containerStyle,
 } from '../configs/styleConfigs';
 import Loading from './Loading';
 import StoryFormInputs from './StoryForm';
@@ -73,22 +73,10 @@ const CreateStory = () => {
   }, [created]);
 
   return (
-    <div
-      css={{
-        width: '100%',
-        padding: '50px',
-        [mq[3]]: {
-          padding: '30px',
-        },
-        [mq[1]]: {
-          padding: '10px',
-        },
-      }}
-    >
+    <div css={[containerStyle]}>
       <Loading isLoading={isLoading} />
-      {
-        userRole === 'Admin' && <Redirect to="/viewStories" />
-      }
+      {/* Only users should be able to access this route */}
+      {userRole === 'Admin' && <Redirect to="/viewStories" />}
       <form
         onSubmit={handleSubmit}
         css={{
@@ -123,9 +111,7 @@ const CreateStory = () => {
           value="Create Story"
         />
       </form>
-      {
-        success && <Redirect to="/viewStories" />
-      }
+      {success && <Redirect to="/viewStories" />}
     </div>
   );
 };

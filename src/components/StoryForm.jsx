@@ -1,15 +1,10 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import PropTypes from 'prop-types';
-import { inputStyle } from '../configs/styleConfigs';
+import { inputStyle, textAreaStyle } from '../configs/styleConfigs';
 
 const fieldMarginBottom = {
   marginBottom: '20px',
-};
-
-const textAreaStyle = {
-  lineHeight: '1.4',
-  height: '120px',
 };
 
 const StoryFormInputs = ({
@@ -43,30 +38,10 @@ const StoryFormInputs = ({
       onChange={(event) => setType(event.currentTarget.value)}
     >
       <option value="" disabled>Select story type</option>
-      <option
-        key="enhancement"
-        value="enhancement"
-      >
-        Enhancement
-      </option>
-      <option
-        key="bugfix"
-        value="bugfix"
-      >
-        Bug fix
-      </option>
-      <option
-        key="development"
-        value="development"
-      >
-        Development
-      </option>
-      <option
-        key="qa"
-        value="qa"
-      >
-        QA
-      </option>
+      <option key="enhancement" value="enhancement">Enhancement</option>
+      <option key="bugfix" value="bugfix">Bug fix</option>
+      <option key="development" value="development">Development</option>
+      <option key="qa" value="qa">QA</option>
     </select>
     <select
       css={[inputStyle, fieldMarginBottom, { height: '40px', backgroundColor: 'transparent' }]}
@@ -76,24 +51,9 @@ const StoryFormInputs = ({
       onChange={(event) => setComplexity(event.currentTarget.value)}
     >
       <option value="" disabled>Select story complexity</option>
-      <option
-        key="low"
-        value="low"
-      >
-        Low
-      </option>
-      <option
-        key="mid"
-        value="mid"
-      >
-        Mid
-      </option>
-      <option
-        key="high"
-        value="high"
-      >
-        High
-      </option>
+      <option key="low" value="low">Low</option>
+      <option key="mid" value="mid">Mid</option>
+      <option key="high" value="high">High</option>
     </select>
     <div css={[fieldMarginBottom, { display: 'flex' }]}>
       <input

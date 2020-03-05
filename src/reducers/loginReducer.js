@@ -9,7 +9,6 @@ export const initialState = {
   errors: {
     statusCode: 0,
     message: '',
-    response: {},
   },
   role: '',
   user: {},
@@ -24,7 +23,6 @@ export default (state = initialState, action = {}) => {
         errors: {
           statusCode: 0,
           message: '',
-          response: {},
         },
         role: '',
         user: {},
@@ -36,7 +34,6 @@ export default (state = initialState, action = {}) => {
         errors: {
           statusCode: 0,
           message: '',
-          response: {},
         },
       };
     case `${LOGIN}_FULFILLED`:
@@ -47,7 +44,6 @@ export default (state = initialState, action = {}) => {
         errors: {
           statusCode: 0,
           message: '',
-          response: {},
         },
         role: action.payload.data.userRoles[0],
         user: action.payload.data,
@@ -59,7 +55,6 @@ export default (state = initialState, action = {}) => {
         errors: {
           statusCode: action.payload.statusCode,
           message: action.payload.message,
-          response: action.payload.response,
         },
       };
     case RESET:
@@ -69,7 +64,6 @@ export default (state = initialState, action = {}) => {
         errors: {
           statusCode: 0,
           message: '',
-          response: {},
         },
       };
     default:

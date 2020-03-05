@@ -10,7 +10,6 @@ export const initialState = {
   errors: {
     statusCode: 0,
     message: '',
-    response: {},
   },
   success: false,
   created: false,
@@ -27,7 +26,6 @@ export default (state = initialState, action = {}) => {
         errors: {
           statusCode: 0,
           message: '',
-          response: {},
         },
       };
     case `${GET_STORIES}_FULFILLED`:
@@ -37,7 +35,6 @@ export default (state = initialState, action = {}) => {
         errors: {
           statusCode: 0,
           message: '',
-          response: {},
         },
         stories: action.payload.data,
       };
@@ -56,7 +53,6 @@ export default (state = initialState, action = {}) => {
         errors: {
           statusCode: 0,
           message: '',
-          response: {},
         },
         created: true,
       };
@@ -68,7 +64,6 @@ export default (state = initialState, action = {}) => {
         errors: {
           statusCode: action.payload.statusCode,
           message: action.payload.message,
-          response: action.payload.response,
         },
       };
     case UPDATE_STORY_STATUS:
@@ -92,7 +87,6 @@ export default (state = initialState, action = {}) => {
         errors: {
           statusCode: 0,
           message: '',
-          response: {},
         },
       };
     default:

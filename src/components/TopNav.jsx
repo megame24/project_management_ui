@@ -30,13 +30,7 @@ const TopNav = () => {
         },
       }}
     >
-      <div
-        css={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
+      <div css={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <i
           css={{ fontSize: '2rem', cursor: 'pointer' }}
           className="ion-android-menu"
@@ -53,16 +47,8 @@ const TopNav = () => {
           PROJ-M
         </h1>
       </div>
-      <div
-        css={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <UserSvg
-          css={{ marginRight: '20px' }}
-        />
+      <div css={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <UserSvg css={{ marginRight: '20px' }} />
         <div>{userFirstName}</div>
       </div>
     </div>
