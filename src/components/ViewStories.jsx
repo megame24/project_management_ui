@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Table } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
 import { activeRoute } from '../actions/navActions';
-import {
-  mq, baseAlertStyle,
-} from '../configs/styleConfigs';
+import { baseAlertStyle, containerStyle } from '../configs/styleConfigs';
 import Loading from './Loading';
 import { reset } from '../actions/generalActions';
 
@@ -37,6 +35,7 @@ const ViewStories = () => {
     };
   }, [dispatch]);
 
+  // reset errors and success toggles when un-mounting component
   useEffect(() => (() => dispatch(reset())), [dispatch]);
 
   const storyClick = (story) => {
@@ -45,18 +44,7 @@ const ViewStories = () => {
   };
 
   return (
-    <div
-      css={{
-        width: '100%',
-        padding: '50px',
-        [mq[3]]: {
-          padding: '30px',
-        },
-        [mq[1]]: {
-          padding: '10px',
-        },
-      }}
-    >
+    <div css={[containerStyle]}>
       <Loading isLoading={isLoading} />
       {apiErrMsg && <div css={[baseAlertStyle, { width: '50%', margin: '0 auto' }]}>{apiErrMsg}</div>}
       <Table celled>

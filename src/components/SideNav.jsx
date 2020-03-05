@@ -14,12 +14,7 @@ const SideNav = () => {
   };
 
   return (
-    <div
-      css={{
-        paddingTop: '20px',
-        fontSize: '16px',
-      }}
-    >
+    <div css={{ paddingTop: '20px', fontSize: '16px' }}>
       <div
         css={{
           marginBottom: '20px',
@@ -27,15 +22,7 @@ const SideNav = () => {
           alignItems: 'center',
         }}
       >
-        <Link
-          css={{
-            color: '#fff',
-            '&:hover': {
-              color: '#fff',
-            },
-          }}
-          to="/createStory"
-        >
+        <Link css={{ color: '#fff', '&:hover': { color: '#fff' } }} to="/createStory">
           <i
             css={{
               fontSize: '20px',
@@ -54,15 +41,7 @@ const SideNav = () => {
           alignItems: 'center',
         }}
       >
-        <Link
-          css={{
-            color: '#fff',
-            '&:hover': {
-              color: '#fff',
-            },
-          }}
-          to="/viewStories"
-        >
+        <Link css={{ color: '#fff', '&:hover': { color: '#fff' } }} to="/viewStories">
           <i
             css={{
               fontSize: '20px',

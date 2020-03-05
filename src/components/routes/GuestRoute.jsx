@@ -14,6 +14,7 @@ const GuestRoute = ({ component: Component, ...rest }) => {
       render={
         (props) => (
           !userId ? <Component {...props} />
+            // redirect if user is logged in
             : <Redirect to={redirectUrl} />
         )
       }

@@ -6,8 +6,14 @@ import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TopNav from '../TopNav';
 import SideNav from '../SideNav';
-import { mq } from '../../configs/styleConfigs';
+import {
+  userComponentContainerStyle, sideNavContainerStyle,
+} from '../../configs/styleConfigs';
 
+/**
+ * UserRoute - wraps user / admin components, injecting nav and validation
+ * @param {*} props props
+ */
 const UserRoute = ({ component: Component, ...rest }) => {
   const userId = useSelector((state) => state.auth.user.id);
   const sideNavStatus = useSelector((state) => state.nav.sideNavStatus);
@@ -21,58 +27,18 @@ const UserRoute = ({ component: Component, ...rest }) => {
           userId ? (
             <div>
               <TopNav />
-              <div
-                css={{
-                  display: 'flex',
-                }}
-              >
-                <div
-                  css={{
-                    minWidth: '300px',
-                    color: '#fff',
-                    backgroundColor: '#0b283c',
-                    height: '100vh',
-                    padding: '30px',
-                    display: sideNavStatus === 'show' ? 'block' : 'none',
-                    zIndex: '2',
-                    [mq[3]]: {
-                      paddingTop: '10px',
-                    },
-                    [mq[2]]: {
-                      padding: '10px 10px',
-                    },
-                    [mq[1]]: {
-                      position: 'absolute',
-                      left: '70',
-                    },
-                  }}
-                >
+              <div css={{ display: 'flex' }}>
+                <div css={[userComponentContainerStyle(sideNavStatus)]}>
                   <SideNav />
                 </div>
-                <div
-                  css={{
-                    width: '100%',
-                    position: 'absolute',
-                    top: '70',
-                    height: '100vh',
-                    backgroundColor: '#000',
-                    opacity: '0.4',
-                    display: 'none',
-                    [mq[1]]: {
-                      display: sideNavStatus === 'show' ? 'block' : 'none',
-                    },
-                  }}
-                />
-                <div
-                  css={{
-                    width: '100%',
-                  }}
-                >
+                <div css={[sideNavContainerStyle(sideNavStatus)]} />
+                <div css={{ width: '100%' }}>
                   <Component {...props} />
                 </div>
               </div>
             </div>
           )
+          // redirect if no logged in user
             : <Redirect to={redirectUrl} />
         )
       }

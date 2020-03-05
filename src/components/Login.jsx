@@ -20,12 +20,14 @@ const Login = () => {
   const [errorMsg, setErrorMsg] = useState({ email: '', password: '' });
   const apiErrMsg = useSelector((state) => state.auth.errors.message);
 
+  // reset errors and success toggles when un-mounting component
   useEffect(() => (() => dispatch(reset())), [dispatch]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const error = {};
 
+    // validate credentials
     const emailRegEx = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+[^<>()\.,;:\s@\"]{2,})$/;
     const passwordRegEx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!”#$%&'()*+,\-./:;<=>?@\[\]^_`{|}~]).{8,}$/;
     if (!emailRegEx.test(email)) error.email = 'Invalid email, input a valid email and try again';
@@ -91,14 +93,7 @@ const Login = () => {
                 setEmail(event.target.value);
               }}
             />
-            <span
-              css={{
-                color: 'red',
-                marginBottom: '20px',
-              }}
-            >
-              {errorMsg.email}
-            </span>
+            <span css={{ color: 'red', marginBottom: '20px' }}>{errorMsg.email}</span>
             <input
               css={[inputStyle]}
               type="password"
@@ -111,19 +106,8 @@ const Login = () => {
                 setPassword(event.target.value);
               }}
             />
-            <span
-              css={{
-                color: 'red',
-                marginBottom: '20px',
-              }}
-            >
-              {errorMsg.password}
-            </span>
-            <div
-              css={{
-                marginBottom: '20px',
-              }}
-            >
+            <span css={{ color: 'red', marginBottom: '20px' }}>{errorMsg.password}</span>
+            <div css={{ marginBottom: '20px' }}>
               <input
                 css={{
                   marginRight: '10px',

@@ -19,15 +19,11 @@ const errorMiddleware = () => (next) => (action) => {
     const errors = {
       statusCode: 0,
       message: action.payload.message,
-      response: {},
     };
     if (action.payload.response) {
       const apiErrors = action.payload.response;
       errors.statusCode = apiErrors.status;
-      errors.message = apiErrors.data.message;
-      if (!apiErrors.data.errors.message) {
-        errors.response = apiErrors.data.errors;
-      }
+      errors.message = apiErrors.data.message ? apiErrors.data.message : apiErrors.data;
     }
     action.payload = errors;
   }
