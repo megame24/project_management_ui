@@ -1,25 +1,37 @@
 # project_management_ui
 
-## Technologies
 
-- `React`
-- `Redux`
-- `Semantic UI React`
+### Deployed test ui on heroku
+- link: https://test-proj-m-ui.herokuapp.com/
+- Admin credentials (for testing purposes): email: `admin@projm.com`, password: `Adm1nP@ssw0rd`
 
-## Installation
+### Installation
 
-Follow the steps below to setup a local development environment:
+- Clone repo and navigate to root directory
+```
+git clone https://github.com/megame24/project_management_ui.git && cd project_management_ui
+```
+- Referencing the `.env-sample` file, create a `.env` file
+- Install dependencies
+```
+npm install
+```
+- Run app
+```
+npm run dev
+```
 
-1.  Clone the repository from a terminal `git clone https://github.com/megame24/project_management_ui.git`.
-2.  Navigate to the project directory `cd project_management_ui`
-3.  Run `npm install` on the terminal to install dependencies.
-4.  Change `.env-sample` to `.env` and provide the necessary credentials
-5.  Run `npm run dev` to start the application for development.
+### Assumptions
 
-## Assumptions and design decisions
+The following are some of the assumptions and design decisions made while developing this application
 
-- 
 
-## Licence
+- Same login route for admin and users, but only users can sign up. Admins are database seeded
+- Users can't update created stories
+- Users can only retrieve stories they created
+- Admins can retrieve all stories in the application
+
+
+### License
 
 MIT
