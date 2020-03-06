@@ -8,28 +8,24 @@ import { activeRoute } from '../actions/navActions';
 import { baseAlertStyle, containerStyle } from '../configs/styleConfigs';
 import Loading from './Loading';
 import { reset } from '../actions/generalActions';
+import { getStories } from '../actions/storyActions';
 
 const ViewStories = () => {
   const isLoading = useSelector((state) => state.story.isLoading);
   const history = useHistory();
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.auth.user.id);
   const userRole = useSelector((state) => state.auth.role);
   const stories = useSelector((state) => state.story.stories);
   const apiErrMsg = useSelector((state) => state.story.errors.message);
 
-  let myStories = stories;
-  if (userRole === 'User') {
-    myStories = stories.filter((story) => story.createdBy === userId);
-  }
-
   const statusColors = {
-    approved: '#c4ede5',
-    rejected: '#f9d2d2',
+    Approved: '#c4ede5',
+    Rejected: '#f9d2d2',
   };
 
   useEffect(() => {
     dispatch(activeRoute('viewStories'));
+    dispatch(getStories());
     return () => {
       dispatch(activeRoute(''));
     };
@@ -61,7 +57,7 @@ const ViewStories = () => {
 
         <Table.Body>
           {
-            myStories.map((story, i) => (
+            stories.map((story, i) => (
               <Table.Row
                 onClick={() => storyClick(story)}
                 key={i}
@@ -74,7 +70,7 @@ const ViewStories = () => {
                 <Table.Cell>{story.description}</Table.Cell>
                 <Table.Cell>{story.type}</Table.Cell>
                 <Table.Cell>{story.complexity}</Table.Cell>
-                <Table.Cell>{story.estimatedHrs}</Table.Cell>
+                <Table.Cell>{story.estimated_hrs}</Table.Cell>
                 <Table.Cell>{story.cost}</Table.Cell>
               </Table.Row>
             ))

@@ -5,13 +5,16 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  mq, inputStyle, inputButtonStyle, containerStyle,
+  mq, inputStyle, inputButtonStyle, containerStyle, baseAlertStyle,
 } from '../configs/styleConfigs';
 import StoryFormInputs from './StoryForm';
 import { updateStatus } from '../actions/storyActions';
 import { reset } from '../actions/generalActions';
+import Loading from './Loading';
 
 const ReviewStory = ({ location }) => {
+  const isLoading = useSelector((state) => state.story.isLoading);
+  const apiErrMsg = useSelector((state) => state.story.errors.message);
   const userRole = useSelector((state) => state.auth.role);
   const success = useSelector((state) => state.story.success);
   const dispatch = useDispatch();
@@ -20,13 +23,13 @@ const ReviewStory = ({ location }) => {
     description: '',
     type: '',
     complexity: '',
-    estimatedHrs: '',
+    estimated_hrs: '',
     cost: '',
     ...location.state,
   };
 
-  const updateStatusClick = (storyToUpdate) => {
-    dispatch(updateStatus(storyToUpdate));
+  const updateStatusClick = (storyId, status) => {
+    dispatch(updateStatus(storyId, status));
   };
 
   // reset errors and success toggles when un-mounting component
@@ -34,6 +37,7 @@ const ReviewStory = ({ location }) => {
 
   return (
     <div css={[containerStyle]}>
+      <Loading isLoading={isLoading} />
       {/* This route is only accessible to admins */}
       {userRole === 'User' && <Redirect to="/viewStories" />}
       <div
@@ -47,13 +51,14 @@ const ReviewStory = ({ location }) => {
           },
         }}
       >
+        {apiErrMsg && <div css={[baseAlertStyle, { width: '50%', margin: '0 auto' }]}>{apiErrMsg}</div>}
         <h1>Review story</h1>
         <StoryFormInputs
           summary={story.summary}
           description={story.description}
           type={story.type}
           complexity={story.complexity}
-          estimatedHrs={`${story.estimatedHrs}`}
+          estimatedHrs={`${story.estimated_hrs}`}
           cost={`${story.cost}`}
         />
         <div css={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -61,7 +66,7 @@ const ReviewStory = ({ location }) => {
             css={[inputStyle, inputButtonStyle, { width: '45%', margin: '0' }]}
             type="button"
             value="Approve"
-            onClick={() => updateStatusClick({ summary: story.summary, status: 'approved' })}
+            onClick={() => updateStatusClick(story.id, 'Approved')}
           />
           <input
             css={[
@@ -77,7 +82,7 @@ const ReviewStory = ({ location }) => {
               }]}
             type="button"
             value="Reject"
-            onClick={() => updateStatusClick({ summary: story.summary, status: 'rejected' })}
+            onClick={() => updateStatusClick(story.id, 'Rejected')}
           />
         </div>
       </div>
@@ -93,7 +98,7 @@ ReviewStory.propTypes = {
       description: PropTypes.string,
       type: PropTypes.string,
       complexity: PropTypes.string,
-      estimatedHrs: PropTypes.number,
+      estimated_hrs: PropTypes.number,
       cost: PropTypes.number,
     }),
   }).isRequired,

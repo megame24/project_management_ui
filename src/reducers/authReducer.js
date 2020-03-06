@@ -2,6 +2,7 @@ import types from '../actions/actionTypes';
 
 const {
   LOGIN, PERSIST_LOGIN, RESET, LOGOUT,
+  SIGN_UP,
 } = types;
 
 export const initialState = {
@@ -10,6 +11,7 @@ export const initialState = {
     statusCode: 0,
     message: '',
   },
+  token: '',
   role: '',
   user: {},
 };
@@ -24,10 +26,12 @@ export default (state = initialState, action = {}) => {
           statusCode: 0,
           message: '',
         },
+        token: '',
         role: '',
         user: {},
       };
     case `${LOGIN}_PENDING`:
+    case `${SIGN_UP}_PENDING`:
       return {
         ...state,
         isLoading: true,
@@ -37,6 +41,7 @@ export default (state = initialState, action = {}) => {
         },
       };
     case `${LOGIN}_FULFILLED`:
+    case `${SIGN_UP}_FULFILLED`:
     case PERSIST_LOGIN:
       return {
         ...state,
@@ -45,10 +50,12 @@ export default (state = initialState, action = {}) => {
           statusCode: 0,
           message: '',
         },
-        role: action.payload.data.userRoles[0],
-        user: action.payload.data,
+        token: action.payload.data.token,
+        role: action.payload.data.user.role,
+        user: action.payload.data.user,
       };
     case `${LOGIN}_REJECTED`:
+    case `${SIGN_UP}_REJECTED`:
       return {
         ...state,
         isLoading: false,

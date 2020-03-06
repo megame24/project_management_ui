@@ -6,7 +6,7 @@ import { mq } from '../configs/styleConfigs';
 import { toggleSideNav } from '../actions/navActions';
 
 const TopNav = () => {
-  const userFirstName = useSelector((state) => state.auth.user.firstName);
+  const userFirstName = useSelector((state) => state.auth.user.first_name);
   const sideNavStatus = useSelector((state) => state.nav.sideNavStatus);
   const dispatch = useDispatch();
 

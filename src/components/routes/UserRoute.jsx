@@ -15,7 +15,7 @@ import {
  * @param {*} props props
  */
 const UserRoute = ({ component: Component, ...rest }) => {
-  const userId = useSelector((state) => state.auth.user.id);
+  const token = useSelector((state) => state.auth.token);
   const sideNavStatus = useSelector((state) => state.nav.sideNavStatus);
   const redirectUrl = '/login';
 
@@ -24,7 +24,7 @@ const UserRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={
         (props) => (
-          userId ? (
+          token ? (
             <div>
               <TopNav />
               <div css={{ display: 'flex' }}>

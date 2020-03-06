@@ -1,8 +1,7 @@
 import types from '../actions/actionTypes';
 
 const {
-  CREATE_STORY, RESET, GET_STORIES, STORE_CREATED_STORY,
-  UPDATE_STORY_STATUS,
+  CREATE_STORY, RESET, GET_STORIES, UPDATE_STORY_STATUS,
 } = types;
 
 export const initialState = {
@@ -12,7 +11,6 @@ export const initialState = {
     message: '',
   },
   success: false,
-  created: false,
   stories: [],
 };
 
@@ -20,6 +18,7 @@ export default (state = initialState, action = {}) => {
   switch (action.type) {
     case `${CREATE_STORY}_PENDING`:
     case `${GET_STORIES}_PENDING`:
+    case `${UPDATE_STORY_STATUS}_PENDING`:
       return {
         ...state,
         isLoading: true,
@@ -38,15 +37,8 @@ export default (state = initialState, action = {}) => {
         },
         stories: action.payload.data,
       };
-    case STORE_CREATED_STORY:
-      return {
-        ...state,
-        stories: [
-          action.payload,
-          ...state.stories],
-        success: true,
-      };
     case `${CREATE_STORY}_FULFILLED`:
+    case `${UPDATE_STORY_STATUS}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
@@ -54,10 +46,11 @@ export default (state = initialState, action = {}) => {
           statusCode: 0,
           message: '',
         },
-        created: true,
+        success: true,
       };
     case `${CREATE_STORY}_REJECTED`:
     case `${GET_STORIES}_REJECTED`:
+    case `${UPDATE_STORY_STATUS}_REJECTED`:
       return {
         ...state,
         isLoading: false,
@@ -66,18 +59,6 @@ export default (state = initialState, action = {}) => {
           message: action.payload.message,
         },
       };
-    case UPDATE_STORY_STATUS:
-    {
-      const stories = [...state.stories];
-      const storyToUpdate = state.stories
-        .filter((story) => story.summary === action.payload.summary)[0];
-      storyToUpdate.status = action.payload.status;
-      return {
-        ...state,
-        stories,
-        success: true,
-      };
-    }
     case RESET:
       return {
         ...state,
