@@ -12,7 +12,7 @@ const axiosInstance = () => {
   }
   const instanceCreate = axios
     .create({
-      baseURL: process.env.API_URL,
+      baseURL: process.env.API_URL || 'https://test-proj-m-api.herokuapp.com/api',
       headers: {
         'Content-Type': 'application/json',
         token,

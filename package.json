@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --env.development",
+    "start": "node server",
+    "dev": "webpack-dev-server --env.development",
     "build": "webpack --env.production",
+    "heroku-postbuild": "npm run build",
     "lint": "eslint --ext js,jsx src"
   },
   "pre-commit": [
@@ -55,6 +57,7 @@
   "dependencies": {
     "@emotion/core": "^10.0.28",
     "axios": "^0.19.2",
+    "express": "^4.17.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-redux": "^7.2.0",
