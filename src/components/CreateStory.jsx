@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { activeRoute } from '../actions/navActions';
-import { createStory, storeCreatedStory } from '../actions/storyActions';
+import { createStory } from '../actions/storyActions';
 import { reset } from '../actions/generalActions';
 import {
   mq, inputStyle, inputButtonStyle, baseAlertStyle, containerStyle,
@@ -19,7 +19,6 @@ const fieldMarginBottom = {
 const CreateStory = () => {
   const isLoading = useSelector((state) => state.story.isLoading);
   const success = useSelector((state) => state.story.success);
-  const created = useSelector((state) => state.story.created);
   const userRole = useSelector((state) => state.auth.role);
   const userId = useSelector((state) => state.auth.user.id);
   const apiErrMsg = useSelector((state) => state.story.errors.message);
@@ -49,28 +48,11 @@ const CreateStory = () => {
       description,
       type,
       complexity,
-      estimatedHrs,
+      estimated_hrs: estimatedHrs,
       cost,
     };
     dispatch(createStory(formData));
   };
-
-  useEffect(() => {
-    const formData = {
-      createdBy: userId,
-      summary,
-      description,
-      type,
-      complexity,
-      estimatedHrs,
-      cost,
-    };
-    if (created) {
-      // save created story on redux store since the mock api do not return it
-      dispatch(storeCreatedStory(formData));
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [created]);
 
   return (
     <div css={[containerStyle]}>

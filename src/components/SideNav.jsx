@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../actions/loginActions';
+import { logout } from '../actions/authActions';
 
 const SideNav = () => {
   const activeRoute = useSelector((state) => state.nav.activeRoute);

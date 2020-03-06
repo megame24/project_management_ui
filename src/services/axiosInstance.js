@@ -6,15 +6,16 @@ import axios from 'axios';
  */
 const axiosInstance = () => {
   let token = '';
-  if (localStorage.getItem('token')) {
-    token = localStorage.getItem('token');
+  if (localStorage.getItem('data')) {
+    const data = JSON.parse(localStorage.getItem('data'));
+    token = data.token;
   }
   const instanceCreate = axios
     .create({
       baseURL: process.env.API_URL,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: token,
+        token,
       },
     });
   return instanceCreate;

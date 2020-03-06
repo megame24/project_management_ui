@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import auth from './loginReducer';
+import auth from './authReducer';
 import nav from './navReducer';
 import story from './storyReducer';
 
